@@ -10,9 +10,10 @@ namespace StoneXBankApp.Models
         public int Id { get; set; }
 
         [Required]
-        public int ProfileId { get; set; }
+        public virtual Profile Profile { get; set; }
 
         [Required]
+        //[RegularExpression("[0-9]{18}")]
         public string BankAccountNumber { get; set; }
 
         [Required]
@@ -25,10 +26,6 @@ namespace StoneXBankApp.Models
 
         [Required]
         [HiddenInput]
-        public int CurrencyId { get; set; }
-
-        [Required]
-        [HiddenInput]
-        public Currency Currency { get; set; }
+        public virtual Currency Currency { get; set; }
     }
 }

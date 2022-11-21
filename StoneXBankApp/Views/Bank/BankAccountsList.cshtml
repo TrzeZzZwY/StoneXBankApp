@@ -1,0 +1,52 @@
+﻿@model List<StoneXBankApp.Models.BankAccount>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="container p-3 align-self-center">
+    <a asp-controller="Bank" asp-action="BankAccountForm" class="btn btn-success m-2">Add new Bank Account</a>
+    @if(Model.Count() == 0)
+    {
+        <div>
+            you don't have a bank account yet, create one now!
+        </div>
+    }
+    else
+    {
+      <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Number
+                </th>
+                <th>
+                    Balance
+                </th>
+                <th>
+                    Currency
+                </th>
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in Model)
+            {
+                <tr>
+                    <td>@account.BankAccountNumber</td>
+                    <td>@account.Balance</td>
+                    <td>@account.Currency.Name</td>
+                    <td>
+                        <a asp-controller="Bank" asp-action="BankAccountDetails" asp-route-id="@account.Id" class="btn btn-primary">Details</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>  
+    }
+    
+</div>

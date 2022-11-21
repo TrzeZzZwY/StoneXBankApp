@@ -1,0 +1,23 @@
+﻿@model StoneXBankApp.Models.TransactionViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="container p-3 border">
+    <form asp-controller="Bank" asp-action="BankAccountTransactionForm" method="post">
+        <input asp-for="SenderBankAccountNumber"/>
+        <div class="mb-3">
+            <label asp-for="RecipientBankAccountNumber">RecipientBankAccountNumber</label>
+            <input asp-for="RecipientBankAccountNumber" />
+            <span asp-validation-for="RecipientBankAccountNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Amout">Amout</label>
+            <input asp-for="Amout" />
+            <span asp-validation-for="Amout" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Dalej</button>
+    </form>
+</div>

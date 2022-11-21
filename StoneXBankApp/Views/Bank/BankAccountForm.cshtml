@@ -1,0 +1,25 @@
+﻿@model StoneXBankApp.Models.BankAccountViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="container p-3 border">
+    <form asp-controller="Bank" asp-action="BankAccountForm" method="post">
+        <div class="mb-3">
+            <label asp-for="Currency">Currency</label>
+            <select asp-for="Currency">
+                @*@foreach(var option in Model.currencies)
+                    {
+                    <option value="@option.Value">@option.Text</option>
+                    }*@
+                <option value="PLN">PLN</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <span asp-validation-for="Currency" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Dalej</button>
+    </form>
+</div>

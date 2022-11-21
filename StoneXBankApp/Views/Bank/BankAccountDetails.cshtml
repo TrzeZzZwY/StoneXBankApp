@@ -1,0 +1,49 @@
+﻿@model StoneXBankApp.Models.BankAccountDetailsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class ="container">
+    <label>Bank Account Number: </label>
+    <div>@Model.BankAccountNumber</div>
+    <label>Your Balance: </label>
+    <div>@Model.Balance @Model.Currency.Name</div>
+
+    <div class="container p-3 align-self-center">
+    <a asp-controller="Bank" asp-action="BankAccountTransactionForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">New Transaction</a>
+    <a asp-controller="Bank" asp-action="BankAccountTransactionTopUpForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">Top up your account</a>
+    @if(Model.Transactions.Count() == 0)
+    {
+        <div>
+            you don't have any transaction yet.
+        </div>
+    }
+    else
+    {
+      <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>
+                    recipient
+                </th>
+                <th>
+                    Amout
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@Transaction.recipient.BankAccountNumber</td>
+                    <td>@Transaction.Amout</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>  
+    }
+</div>
