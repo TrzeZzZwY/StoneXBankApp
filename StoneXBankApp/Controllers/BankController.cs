@@ -243,7 +243,8 @@ namespace StoneXBankApp.Controllers
                 detailsViewModel.Balance = bankAccount.Balance;
 
                 detailsViewModel.Transactions = (from t in db.transactions
-                                                 where t.sender == bankAccount
+                                                 where (t.sender == bankAccount
+                                                 || t.recipient == bankAccount)
                                                  select t).ToList();
 
             }
@@ -290,7 +291,11 @@ namespace StoneXBankApp.Controllers
                               && curr.Contains(ba.Currency))
                              select ba).FirstOrDefault();
 
-                if (Sender is null || Recipient is null || Sender.Balance < transactionViewModel.Amout || Sender.Currency != Recipient.Currency)
+                if (Sender is null || 
+                    Recipient is null || 
+                    Sender.Balance < transactionViewModel.Amout || 
+                    Sender.Currency != Recipient.Currency
+                    || transactionViewModel.Amout < 0)
                     return View(transactionViewModel);
                 BankAccountDetailsViewModel detailsViewModel = new BankAccountDetailsViewModel();
 
@@ -350,7 +355,7 @@ namespace StoneXBankApp.Controllers
                           && curr.Contains(ba.Currency))
                           select ba).FirstOrDefault();
 
-                if (Sender is null)
+                if (Sender is null || transactionViewModel.Amout <= 0)
                     return View(transactionViewModel);
                 BankAccountDetailsViewModel detailsViewModel = new BankAccountDetailsViewModel();
 
@@ -373,6 +378,66 @@ namespace StoneXBankApp.Controllers
                                                  select t).ToList();
                 return BankAccountDetails(Sender.Id);
             }
+
+        }
+
+        public IActionResult BankAccountTransactionWithdrawForm([FromRoute] string? id)
+        {
+            var profileId = HttpContext.Session.GetString(SessionKeyName);
+            TransactionTopUpViewModel transaction = new TransactionTopUpViewModel();
+            using (var db = new MyDbContext())
+            {
+                Profile profile = (from p in db.profiles
+                                   where p.Id == int.Parse(profileId)
+                                   select p).FirstOrDefault();
+
+                transaction.SenderBankAccountNumber = (from ba in db.bankAccounts
+                                                       where (ba.Profile == profile
+                                                       && ba.BankAccountNumber == id)
+                                                       select ba.BankAccountNumber).FirstOrDefault();
+            }
+            return View(transaction);
+        }
+        [HttpPost]
+        public IActionResult BankAccountTransactionWithdrawForm([FromForm] TransactionTopUpViewModel transactionViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(transactionViewModel);
+            BankAccount? Sender = new BankAccount();
+
+            using (var db = new MyDbContext())
+            {
+                List<Currency> curr = (from c in db.currencies
+                                       select c).ToList();
+                Sender = (from ba in db.bankAccounts
+                          where (ba.BankAccountNumber == transactionViewModel.SenderBankAccountNumber
+                          && curr.Contains(ba.Currency))
+                          select ba).FirstOrDefault();
+
+                if (Sender is null || transactionViewModel.Amout <= 0)
+                    return View(transactionViewModel);
+                BankAccountDetailsViewModel detailsViewModel = new BankAccountDetailsViewModel();
+
+
+
+                Sender.Balance -= transactionViewModel.Amout;
+                Transaction transaction = new Transaction()
+                {
+                    sender = Sender,
+                    Amout = transactionViewModel.Amout
+                };
+                db.Update(Sender);
+                db.SaveChanges();
+
+                detailsViewModel.Balance = Sender.Balance;
+                detailsViewModel.BankAccountNumber = Sender.BankAccountNumber;
+                detailsViewModel.Currency = Sender.Currency;
+                detailsViewModel.Transactions = (from t in db.transactions
+                                                 where t.sender == Sender
+                                                 select t).ToList();
+                return BankAccountDetails(Sender.Id);
+            }
+
         }
         private Profile FindPerson(int id)
         {

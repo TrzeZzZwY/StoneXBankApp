@@ -13,7 +13,8 @@
 
     <div class="container p-3 align-self-center">
     <a asp-controller="Bank" asp-action="BankAccountTransactionForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">New Transaction</a>
-    <a asp-controller="Bank" asp-action="BankAccountTransactionTopUpForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">Top up your account</a>
+    <a asp-controller="Bank" asp-action="BankAccountTransactionTopUpForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">Deposit</a>
+    <a asp-controller="Bank" asp-action="BankAccountTransactionWithdrawForm" asp-route-id="@Model.BankAccountNumber" class="btn btn-success m-2">Withdraw</a>
     @if(Model.Transactions.Count() == 0)
     {
         <div>
@@ -25,9 +26,11 @@
       <table class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-
+               <th>
+                    Sender
+                </th>
                 <th>
-                    recipient
+                    Recipient
                 </th>
                 <th>
                     Amout
@@ -38,6 +41,7 @@
             @foreach (var Transaction in Model.Transactions)
             {
                 <tr>
+                    <td>@Transaction.sender.BankAccountNumber</td>
                     <td>@Transaction.recipient.BankAccountNumber</td>
                     <td>@Transaction.Amout</td>
                 </tr>

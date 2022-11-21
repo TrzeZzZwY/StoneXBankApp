@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 <div class="container p-3 border">
-    <form asp-controller="Bank" asp-action="BankAccountTransactionTopUpForm" method="post">
+    <form asp-controller="Bank" asp-action="BankAccountTransactionWithdrawForm" method="post">
         <input asp-for="SenderBankAccountNumber"/>
         <div class="mb-3">
             <label asp-for="Amout">Amout</label>

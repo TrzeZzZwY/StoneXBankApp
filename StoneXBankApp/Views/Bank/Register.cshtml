@@ -9,49 +9,49 @@
     <form asp-controller="Bank" asp-action="Register" method="post">
         <div class="mb-3">
             <label asp-for="Name">Name</label>
-            <input asp-for="Name" />
+            <input asp-for="Name" class="form-control"/>
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Surename">Surename</label>
-            <input asp-for="Surename" />
+            <input asp-for="Surename" class="form-control" />
             <span asp-validation-for="Surename" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Email">Email</label>
-            <input asp-for="Email" />
+            <input asp-for="Email" class="form-control"/>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Login">Login</label>
-            <input asp-for="Login" />
+            <input asp-for="Login"  class="form-control" />
             <span asp-validation-for="Login" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Password">Password</label>
-            <input type="password" asp-for="Password" />
+            <input type="password" asp-for="Password"  class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="BirthDate">BirthDate</label>
-            <input asp-for="BirthDate" />
+            <input asp-for="BirthDate"  class="form-control"/>
             <span asp-validation-for="BirthDate" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Pesel">Pesel</label>
-            <input asp-for="Pesel" />
+            <input asp-for="Pesel"  class="form-control"/>
             <span asp-validation-for="Pesel" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="RegulaminAccepted">Regulamin</label>
-            <input asp-for="RegulaminAccepted" />
+            <input asp-for="RegulaminAccepted"/>
             <span asp-validation-for="RegulaminAccepted" class="text-danger"></span>
         </div>
 

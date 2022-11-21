@@ -9,12 +9,12 @@
     <form asp-controller="Bank" asp-action="Login" method="post">
         <div class="mb-3">
             <label asp-for="Login">Login</label>
-            <input asp-for="Login" />
+            <input asp-for="Login" class="form-control"/>
             <span asp-validation-for="Login" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="Password">Treść:</label>
-            <input type="password" asp-for="Password" />
+            <input type="password" asp-for="Password" class="form-control"/>
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Dalej</button>

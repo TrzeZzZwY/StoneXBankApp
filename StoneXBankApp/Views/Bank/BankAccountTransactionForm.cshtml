@@ -10,12 +10,12 @@
         <input asp-for="SenderBankAccountNumber"/>
         <div class="mb-3">
             <label asp-for="RecipientBankAccountNumber">RecipientBankAccountNumber</label>
-            <input asp-for="RecipientBankAccountNumber" />
+            <input asp-for="RecipientBankAccountNumber" class="form-control"/>
             <span asp-validation-for="RecipientBankAccountNumber" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="Amout">Amout</label>
-            <input asp-for="Amout" />
+            <input asp-for="Amout" class="form-control"/>
             <span asp-validation-for="Amout" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Dalej</button>
